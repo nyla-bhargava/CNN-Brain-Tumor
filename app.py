@@ -28,6 +28,7 @@ st.markdown("""
     
     .stApp {
         background: linear-gradient(160deg, #0a0f0f 0%, #0d1b1b 40%, #112020 100%);
+        padding: 0 !important;
     }
     
     .main-container {
@@ -36,6 +37,7 @@ st.markdown("""
         padding: 0 2rem;
     }
     
+    /* Navigation Bar */
     .navbar {
         position: fixed;
         top: 0;
@@ -78,6 +80,7 @@ st.markdown("""
         font-family: 'Space Grotesk', sans-serif;
         font-size: 1.4rem;
         font-weight: 700;
+        color: #f0fdfa;
         background: linear-gradient(135deg, #f0fdfa, #e2e8f0);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -96,22 +99,26 @@ st.markdown("""
         padding: 0.75rem 1.5rem;
         border-radius: 10px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
     }
     
     .nav-link:hover {
         color: #5eead4 !important;
         background: rgba(94, 234, 212, 0.15);
         transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(94, 234, 212, 0.2);
     }
     
     .section-anchor {
         scroll-margin-top: 120px;
+        padding-top: 120px;
     }
     
     .section-padding {
         padding: 5rem 0;
     }
     
+    /* Hero Section */
     .hero-content {
         text-align: center;
         max-width: 900px;
@@ -130,6 +137,7 @@ st.markdown("""
         font-weight: 600;
         margin-bottom: 2rem;
         letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(94, 234, 212, 0.1);
     }
     
     .hero-title {
@@ -145,6 +153,7 @@ st.markdown("""
         background: linear-gradient(135deg, #14b8a6 0%, #5eead4 50%, #99f6e4 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
     
     .hero-subtitle {
@@ -154,6 +163,7 @@ st.markdown("""
         max-width: 700px;
         margin: 0 auto 3rem;
         line-height: 1.75;
+        text-align: center;
     }
     
     .hero-stats {
@@ -165,9 +175,12 @@ st.markdown("""
         background: rgba(20, 184, 166, 0.05);
         border-radius: 20px;
         border: 1px solid rgba(94, 234, 212, 0.1);
+        backdrop-filter: blur(10px);
     }
     
-    .hero-stat { text-align: center; }
+    .hero-stat {
+        text-align: center;
+    }
     
     .hero-stat-value {
         font-family: 'Space Grotesk', sans-serif;
@@ -176,6 +189,7 @@ st.markdown("""
         background: linear-gradient(135deg, #5eead4, #99f6e4);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        line-height: 1;
         margin-bottom: 0.5rem;
     }
     
@@ -183,9 +197,11 @@ st.markdown("""
         color: #9ca3af;
         font-size: 0.9rem;
         font-weight: 500;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
     }
     
+    /* Section Headers - CENTERED */
     .section-header {
         text-align: center;
         margin-bottom: 4rem;
@@ -202,6 +218,7 @@ st.markdown("""
         text-transform: uppercase;
         margin-bottom: 1rem;
         display: block;
+        text-align: center;
     }
     
     .section-title {
@@ -210,6 +227,8 @@ st.markdown("""
         font-weight: 700;
         color: #f0fdfa;
         margin-bottom: 1rem;
+        line-height: 1.2;
+        text-align: center;
     }
     
     .section-desc {
@@ -218,8 +237,10 @@ st.markdown("""
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.7;
+        text-align: center;
     }
     
+    /* Glass Cards */
     .glass-card {
         background: rgba(20, 30, 30, 0.6);
         backdrop-filter: blur(25px);
@@ -228,6 +249,9 @@ st.markdown("""
         border: 1px solid rgba(94, 234, 212, 0.12);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     }
     
@@ -235,8 +259,10 @@ st.markdown("""
         transform: translateY(-8px);
         border-color: rgba(94, 234, 212, 0.25);
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        background: rgba(20, 30, 30, 0.75);
     }
     
+    /* Tumor Cards */
     .tumor-card {
         position: relative;
         overflow: hidden;
@@ -302,6 +328,7 @@ st.markdown("""
         font-size: 1rem;
         line-height: 1.7;
         margin-bottom: 1.75rem;
+        flex-grow: 1;
     }
     
     .tumor-list {
@@ -323,6 +350,14 @@ st.markdown("""
         content: '→';
         color: #5eead4;
         font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+        flex-shrink: 0;
+    }
+    
+    /* Info Cards */
+    .info-card {
+        min-height: 320px;
     }
     
     .feature-icon {
@@ -345,6 +380,12 @@ st.markdown("""
         margin-bottom: 1.25rem;
     }
     
+    /* Upload Section */
+    .upload-zone {
+        max-width: 800px;
+        margin: 0 auto 3rem;
+    }
+    
     .upload-container {
         background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(94, 234, 212, 0.03));
         border: 2px dashed rgba(94, 234, 212, 0.25);
@@ -358,6 +399,7 @@ st.markdown("""
     .upload-container:hover {
         border-color: rgba(94, 234, 212, 0.5);
         box-shadow: 0 0 50px rgba(94, 234, 212, 0.15);
+        transform: translateY(-4px);
     }
     
     .upload-icon {
@@ -371,6 +413,7 @@ st.markdown("""
         margin: 0 auto 1.75rem;
         font-size: 1.8rem;
         color: #5eead4;
+        box-shadow: 0 8px 25px rgba(94, 234, 212, 0.2);
     }
     
     .upload-title {
@@ -390,6 +433,7 @@ st.markdown("""
         display: flex;
         gap: 1rem;
         justify-content: center;
+        flex-wrap: wrap;
     }
     
     .format-badge {
@@ -401,6 +445,12 @@ st.markdown("""
         font-weight: 600;
     }
     
+    /* Results Section */
+    .results-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
     .result-main {
         background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.05));
         border: 1px solid rgba(16, 185, 129, 0.25);
@@ -410,18 +460,34 @@ st.markdown("""
         text-align: center;
     }
     
+    .result-main-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(16, 185, 129, 0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+        color: #10b981;
+    }
+    
     .result-main-title {
         font-family: 'Space Grotesk', sans-serif;
         font-size: 2.2rem;
         font-weight: 800;
+        color: #10b981;
         margin-bottom: 0.75rem;
     }
     
     .result-main-confidence {
         font-size: 1.3rem;
+        color: #059669;
         font-weight: 700;
     }
     
+    /* Probability Bars */
     .prob-container {
         background: rgba(20, 30, 30, 0.6);
         backdrop-filter: blur(20px);
@@ -430,7 +496,9 @@ st.markdown("""
         margin-top: 1.5rem;
     }
     
-    .prob-item { margin-bottom: 1.5rem; }
+    .prob-item {
+        margin-bottom: 1.5rem;
+    }
     
     .prob-header {
         display: flex;
@@ -468,12 +536,13 @@ st.markdown("""
     .prob-bar-pituitary { background: linear-gradient(90deg, #a855f7, #c084fc); }
     .prob-bar-notumor { background: linear-gradient(90deg, #10b981, #34d399); }
     
+    /* Disclaimer */
     .disclaimer {
         background: rgba(245, 158, 11, 0.08);
         border: 1px solid rgba(245, 158, 11, 0.2);
         border-radius: 16px;
         padding: 2rem 2.5rem;
-        margin: 4rem auto;
+        margin: 4rem auto 4rem;
         max-width: 900px;
         display: flex;
         align-items: flex-start;
@@ -490,17 +559,24 @@ st.markdown("""
         justify-content: center;
         color: #f59e0b;
         font-weight: 800;
+        font-size: 1rem;
         flex-shrink: 0;
+        margin-top: 0.2rem;
     }
     
     .disclaimer-text {
         color: #d1d5db;
         font-size: 1rem;
         line-height: 1.7;
+        flex: 1;
     }
     
-    .disclaimer-text strong { color: #f59e0b; }
+    .disclaimer-text strong {
+        color: #f59e0b;
+        font-weight: 700;
+    }
     
+    /* Footer */
     .footer {
         padding: 4rem 0 2rem;
         margin-top: 6rem;
@@ -513,6 +589,7 @@ st.markdown("""
         justify-content: center;
         gap: 2.5rem;
         margin-bottom: 2rem;
+        flex-wrap: wrap;
     }
     
     .footer-link {
@@ -528,11 +605,13 @@ st.markdown("""
     .footer-link:hover {
         color: #5eead4;
         background: rgba(94, 234, 212, 0.1);
+        transform: translateY(-1px);
     }
     
     .footer-copyright {
         color: #6b7280;
         font-size: 0.9rem;
+        font-weight: 500;
     }
     
     .divider {
@@ -542,6 +621,7 @@ st.markdown("""
         width: 200px;
     }
     
+    /* Button Styling */
     .stButton > button {
         background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
         color: #0a0f0f !important;
@@ -550,18 +630,22 @@ st.markdown("""
         border-radius: 14px;
         font-weight: 700;
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         width: 100%;
         max-width: 300px;
         box-shadow: 0 8px 25px rgba(20, 184, 166, 0.3);
     }
     
     .stButton > button:hover {
-        transform: translateY(-3px);
+        transform: translateY(-3px) scale(1.02);
         box-shadow: 0 20px 40px rgba(20, 184, 166, 0.4);
+        background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
     }
     
-    #MainMenu, footer, header { visibility: hidden; }
+    /* Hide Streamlit defaults */
+    #MainMenu { visibility: hidden; }
+    footer { visibility: hidden; }
+    header { visibility: hidden; }
     
     .stImage > img {
         border-radius: 16px !important;
@@ -573,7 +657,8 @@ st.markdown("""
 # Load model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("model.h5")
+    model = tf.keras.models.load_model("model.h5")
+    return model
 
 model = load_model()
 
@@ -626,6 +711,9 @@ def preprocess_image(image):
         img_array = np.expand_dims(img_array, axis=0)
     return img_array.astype(np.float32)
 
+# Main container
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
 # Navigation Bar
 st.markdown("""
 <nav class="navbar">
@@ -635,9 +723,9 @@ st.markdown("""
     </div>
     <div class="nav-links">
         <a href="#overview" class="nav-link">Overview</a>
-        <a href="#categories" class="nav-link">Categories</a>
-        <a href="#analysis" class="nav-link">Analysis</a>
         <a href="#documentation" class="nav-link">Documentation</a>
+        <a href="#categories" class="nav-link">Categories</a>
+        <a href="#analysis" class="nav-link">Analyze</a>
     </div>
 </nav>
 """, unsafe_allow_html=True)
@@ -677,14 +765,65 @@ st.markdown("""
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
+# Documentation Section
+st.markdown("""
+<div id="documentation" class="section-anchor"></div>
+<div class="section-padding">
+    <div class="section-header">
+        <div class="section-tag">Technical Overview</div>
+        <h2 class="section-title">Project Documentation</h2>
+        <p class="section-desc">Technical specifications and model architecture details</p>
+    </div>
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2, gap="large")
+
+with col1:
+    st.markdown(f"""
+    <div class="glass-card info-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">About This Project</div>
+        <p class="tumor-desc">
+            Educational AI application for brain tumor classification using 
+            Convolutional Neural Networks trained on extensive MRI datasets.
+        </p>
+        <ul class="tumor-list">
+            <li>Developed for medical education</li>
+            <li>Research-grade accuracy</li>
+            <li>Real-time inference</li>
+            <li>Transparent predictions</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="glass-card info-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Model Architecture</div>
+        <ul class="tumor-list">
+            <li><strong>CNN Layers:</strong> Multiple Conv2D + MaxPooling</li>
+            <li><strong>Input:</strong> 150×150×3 RGB MRI images</li>
+            <li><strong>Output:</strong> Softmax (4 classes)</li>
+            <li><strong>Framework:</strong> TensorFlow/Keras 2.x</li>
+            <li><strong>Preprocessing:</strong> Rescale [0,1] normalization</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
 # Categories Section
 st.markdown('<div id="categories" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="section-header">
-    <div class="section-tag">Classification Categories</div>
-    <h2 class="section-title">Tumor Type Reference</h2>
-    <p class="section-desc">Detailed overview of the four brain tumor classifications</p>
-</div>
+<div class="section-padding">
+    <div class="section-header">
+        <div class="section-tag">Classification Categories</div>
+        <h2 class="section-title">Tumor Type Reference</h2>
+        <p class="section-desc">Detailed overview of the four brain tumor classifications</p>
+    </div>
 """, unsafe_allow_html=True)
 
 col1, col2 = st.columns(2, gap="large")
@@ -695,7 +834,9 @@ with col1:
         <div class="tumor-name">Glioma</div>
         <span class="tumor-severity {TUMOR_INFO['glioma']['severity_class']}">{TUMOR_INFO['glioma']['severity']}</span>
         <p class="tumor-desc">{TUMOR_INFO['glioma']['description']}</p>
-        <ul class="tumor-list">{''.join([f'<li>{p}</li>' for p in TUMOR_INFO['glioma']['points']])}</ul>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['glioma']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
@@ -706,7 +847,9 @@ with col2:
         <div class="tumor-name">Meningioma</div>
         <span class="tumor-severity {TUMOR_INFO['meningioma']['severity_class']}">{TUMOR_INFO['meningioma']['severity']}</span>
         <p class="tumor-desc">{TUMOR_INFO['meningioma']['description']}</p>
-        <ul class="tumor-list">{''.join([f'<li>{p}</li>' for p in TUMOR_INFO['meningioma']['points']])}</ul>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['meningioma']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
@@ -718,7 +861,9 @@ with col3:
         <div class="tumor-name">Pituitary</div>
         <span class="tumor-severity {TUMOR_INFO['pituitary']['severity_class']}">{TUMOR_INFO['pituitary']['severity']}</span>
         <p class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</p>
-        <ul class="tumor-list">{''.join([f'<li>{p}</li>' for p in TUMOR_INFO['pituitary']['points']])}</ul>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['pituitary']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
@@ -729,67 +874,109 @@ with col4:
         <div class="tumor-name">No Tumor</div>
         <span class="tumor-severity {TUMOR_INFO['notumor']['severity_class']}">{TUMOR_INFO['notumor']['severity']}</span>
         <p class="tumor-desc">{TUMOR_INFO['notumor']['description']}</p>
-        <ul class="tumor-list">{''.join([f'<li>{p}</li>' for p in TUMOR_INFO['notumor']['points']])}</ul>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['notumor']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Analysis Section
 st.markdown('<div id="analysis" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="section-header">
-    <div class="section-tag">MRI Analysis</div>
-    <h2 class="section-title">Upload & Analyze</h2>
-    <p class="section-desc">Submit brain MRI scans for instant classification</p>
-</div>
+<div class="section-padding">
+    <div class="section-header">
+        <div class="section-tag">MRI Analysis</div>
+        <h2 class="section-title">Upload & Analyze</h2>
+        <p class="section-desc">Submit brain MRI scans for instant classification</p>
+    </div>
+    
+    <div class="upload-zone">
 """, unsafe_allow_html=True)
 
-uploaded_file = st.file_uploader("Upload MRI Scan", type=["png", "jpg", "jpeg"], label_visibility="collapsed")
+uploaded_file = st.file_uploader(
+    "Upload MRI Scan", 
+    type=["png", "jpg", "jpeg"], 
+    label_visibility="collapsed",
+    help="Supported formats: PNG, JPG, JPEG (Max 10MB)"
+)
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
-    col1, col2 = st.columns(2, gap="large")
+    
+    col1, col2 = st.columns([1, 1], gap="large")
     
     with col1:
-        st.markdown('<div class="glass-card"><div style="color: #5eead4; font-weight: 700; margin-bottom: 1rem;">◎ Uploaded MRI Scan</div>', unsafe_allow_html=True)
-        st.image(image, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="glass-card" style="text-align: center;">
+            <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem;">
+                ◎ Uploaded MRI Scan
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(image, use_container_width=True, clamp=True)
     
     with col2:
-        st.markdown('<div class="glass-card"><div style="color: #5eead4; font-weight: 700; margin-bottom: 1rem;">◆ Classification Results</div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; text-align: center;">
+            ◉ Classification Results
+        </div>
+        """, unsafe_allow_html=True)
         
-        if st.button("◇ Run Neural Network Analysis"):
-            with st.spinner("Analyzing..."):
-                progress = st.progress(0)
-                for i in range(100):
-                    time.sleep(0.02)
-                    progress.progress(i + 1)
-                progress.empty()
+        if st.button("◆ Run Neural Network Analysis", type="primary"):
+            with st.spinner("Analyzing MRI scan..."):
+                progress_bar = st.progress(0)
+                status_text = st.empty()
                 
-                processed = preprocess_image(image)
-                prediction = model.predict(processed, verbose=0)
-                idx = np.argmax(prediction[0])
-                confidence = prediction[0][idx]
-                class_name = CLASS_NAMES[idx]
-                color = CLASS_COLORS[class_name]
+                for i in range(100):
+                    if i < 25:
+                        status_text.text("→ Preprocessing image...")
+                    elif i < 50:
+                        status_text.text("→ Loading neural network...")
+                    elif i < 80:
+                        status_text.text("→ Running inference...")
+                    else:
+                        status_text.text("→ Generating results...")
+                    
+                    time.sleep(0.03)
+                    progress_bar.progress(i + 1)
+                
+                status_text.empty()
+                progress_bar.empty()
+                
+                processed_image = preprocess_image(image)
+                prediction = model.predict(processed_image, verbose=0)
+                predicted_class_idx = np.argmax(prediction[0])
+                confidence = prediction[0][predicted_class_idx]
+                class_name = CLASS_NAMES[predicted_class_idx]
                 
                 st.markdown(f"""
-                <div class="result-main" style="border-color: {color}40; background: linear-gradient(135deg, {color}15, {color}08);">
-                    <div class="result-main-title" style="color: {color};">{class_name.upper()}</div>
-                    <div class="result-main-confidence" style="color: {color};">Confidence: {confidence:.1%}</div>
+                <div class="result-main">
+                    <div class="result-main-icon">◉</div>
+                    <div class="result-main-title">{class_name.upper()}</div>
+                    <div class="result-main-confidence">
+                        Confidence: <strong>{confidence:.1%}</strong>
+                    </div>
                 </div>
                 """, unsafe_allow_html=True)
                 
-                st.markdown('<div class="prob-container"><div style="color: #9ca3af; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center;">◇ Probability Distribution</div>', unsafe_allow_html=True)
+                st.markdown("""
+                <div class="prob-container">
+                    <div style="color: #9ca3af; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center;">
+                        ◇ Probability Distribution
+                    </div>
+                """, unsafe_allow_html=True)
                 
                 for cls, score in zip(CLASS_NAMES, prediction[0]):
-                    c = CLASS_COLORS[cls]
+                    color = CLASS_COLORS[cls]
                     st.markdown(f"""
                     <div class="prob-item">
                         <div class="prob-header">
                             <span class="prob-name">{cls.capitalize()}</span>
-                            <span class="prob-value" style="color: {c};">{score:.1%}</span>
+                            <span class="prob-value" style="color: {color};">{score:.1%}</span>
                         </div>
                         <div class="prob-bar-bg">
                             <div class="prob-bar prob-bar-{cls}" style="width: {score*100:.0f}%;"></div>
@@ -797,8 +984,8 @@ if uploaded_file is not None:
                     </div>
                     """, unsafe_allow_html=True)
                 
-                st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+
 else:
     st.markdown("""
     <div class="upload-container">
@@ -813,58 +1000,22 @@ else:
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
-
-# Documentation Section
-st.markdown('<div id="documentation" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="section-header">
-    <div class="section-tag">Documentation</div>
-    <h2 class="section-title">Project Documentation</h2>
-    <p class="section-desc">Technical specifications and model architecture</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns(2, gap="large")
-with col1:
-    st.markdown("""
-    <div class="glass-card">
-        <div class="feature-icon">◇</div>
-        <div class="feature-title">About This Project</div>
-        <p class="tumor-desc">Educational AI application for brain tumor classification using CNNs trained on MRI datasets.</p>
-        <ul class="tumor-list">
-            <li>Developed for medical education</li>
-            <li>Research-grade accuracy</li>
-            <li>Real-time inference</li>
-            <li>Transparent predictions</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div class="glass-card">
-        <div class="feature-icon">◆</div>
-        <div class="feature-title">Model Architecture</div>
-        <ul class="tumor-list">
-            <li><strong>Layers:</strong> Multiple Conv2D + MaxPooling</li>
-            <li><strong>Input:</strong> 150×150×3 RGB images</li>
-            <li><strong>Output:</strong> Softmax (4 classes)</li>
-            <li><strong>Framework:</strong> TensorFlow/Keras</li>
-            <li><strong>Preprocessing:</strong> Rescale [0,1]</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Disclaimer
 st.markdown("""
 <div class="disclaimer">
     <div class="disclaimer-icon">!</div>
     <div class="disclaimer-text">
-        <strong>Medical Disclaimer:</strong> This AI application is for 
-        <strong>educational and research purposes only</strong>. 
-        Never use as a substitute for professional medical diagnosis.
-        Always consult qualified healthcare professionals.
+        <strong>Medical Disclaimer:</strong> This AI application is developed exclusively for 
+        <strong>educational and research purposes only</strong>. It should <strong>never</strong> 
+        be used as a substitute for professional medical diagnosis, treatment, or clinical decision-making. 
+        Always consult qualified healthcare professionals for medical advice.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -874,12 +1025,15 @@ st.markdown("""
 <div class="footer">
     <div class="footer-links">
         <span class="footer-link">Documentation</span>
-        <span class="footer-link">Research</span>
+        <span class="footer-link">Research Paper</span>
         <span class="footer-link">GitHub</span>
         <span class="footer-link">Contact</span>
     </div>
-    <div class="footer-copyright">© 2025 BrainTumorAI — Built with TensorFlow & Streamlit</div>
+    <div class="footer-copyright">
+        © 2025 BrainTumorAI — Built with TensorFlow, Keras & Streamlit
+    </div>
 </div>
-<div style="height: 100px;"></div>
+</div>
 """, unsafe_allow_html=True)
 
+st.markdown('<div style="height: 120px;"></div>', unsafe_allow_html=True)
