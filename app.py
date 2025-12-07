@@ -161,7 +161,7 @@ st.markdown("""
         color: #a1a1aa;
         font-size: 1.2rem;
         font-weight: 300;
-        max-width: 1000px;
+        max-width: 900px;
         margin: 0 auto 3rem;
         line-height: 1.75;
         text-align: center;
@@ -235,7 +235,7 @@ st.markdown("""
     .section-desc {
         color: #9ca3af;
         font-size: 1.1rem;
-        max-width: 600px;
+        max-width: 800px;
         margin: 0 auto;
         line-height: 1.7;
         text-align: center;
