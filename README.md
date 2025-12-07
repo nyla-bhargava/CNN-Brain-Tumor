@@ -7,8 +7,8 @@ This project detects 4 types of brain tumors using MRI scans:
 - No Tumor
 
 ## Demo
-Check out the live demo on Hugging Face Spaces:
-👉 <your space link>
+Check out the demo and test it yourself:
+👉 <https://demo-brain-tumor.streamlit.app/>
 
 ## Train the Model
 Open train.ipynb in Google Colab to retrain the model.
