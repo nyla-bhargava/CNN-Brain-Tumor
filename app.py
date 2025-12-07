@@ -6,7 +6,7 @@ import time
 
 # Page config
 st.set_page_config(
-    page_title="Neural MRI Analysis",
+    page_title="BrainTumorAI",
     page_icon="◉",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -18,6 +18,7 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
     
     * { font-family: 'Plus Jakarta Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
     
     .stApp {
         background: linear-gradient(160deg, #0a0f0f 0%, #0d1b1b 40%, #112020 100%);
@@ -29,7 +30,7 @@ st.markdown("""
         justify-content: space-between;
         align-items: center;
         padding: 1rem 2rem;
-        background: rgba(13, 27, 27, 0.8);
+        background: rgba(13, 27, 27, 0.95);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid rgba(94, 234, 212, 0.1);
         margin: -1rem -1rem 2rem -1rem;
@@ -66,28 +67,29 @@ st.markdown("""
     
     .nav-links {
         display: flex;
-        gap: 2rem;
+        gap: 0.5rem;
     }
     
     .nav-link {
-        color: #5eead4;
+        color: #94a3b8;
         font-size: 0.9rem;
         font-weight: 500;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1.25rem;
         border-radius: 8px;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
     
     .nav-link:hover {
         background: rgba(94, 234, 212, 0.1);
+        color: #5eead4;
     }
     
     /* Hero Section */
     .hero-section {
-        text-align: center;
-        padding: 4rem 2rem;
-        margin-bottom: 3rem;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
     }
     
     .hero-badge {
@@ -105,7 +107,7 @@ st.markdown("""
     
     .hero-title {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 4rem;
+        font-size: 3.5rem;
         font-weight: 700;
         color: #f0fdfa;
         margin-bottom: 1rem;
@@ -120,29 +122,28 @@ st.markdown("""
     
     .hero-subtitle {
         color: #6b7280;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         font-weight: 300;
         max-width: 600px;
-        margin: 0 auto 2rem;
-        line-height: 1.6;
+        line-height: 1.7;
+        margin-bottom: 2rem;
     }
     
     .hero-stats {
         display: flex;
-        justify-content: center;
-        gap: 4rem;
-        margin-top: 3rem;
+        gap: 3rem;
+        margin-top: 2.5rem;
         padding-top: 2rem;
         border-top: 1px solid rgba(94, 234, 212, 0.1);
     }
     
     .hero-stat {
-        text-align: center;
+        text-align: left;
     }
     
     .hero-stat-value {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 700;
         color: #5eead4;
         line-height: 1;
@@ -150,15 +151,14 @@ st.markdown("""
     
     .hero-stat-label {
         color: #6b7280;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        margin-top: 0.4rem;
         font-weight: 400;
     }
     
     /* Section Headers */
     .section-header {
-        text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
     
     .section-tag {
@@ -172,7 +172,7 @@ st.markdown("""
     
     .section-title {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 2.25rem;
+        font-size: 2rem;
         font-weight: 600;
         color: #f0fdfa;
         margin-bottom: 0.5rem;
@@ -182,7 +182,6 @@ st.markdown("""
         color: #6b7280;
         font-size: 1rem;
         max-width: 500px;
-        margin: 0 auto;
     }
     
     /* Glass Cards */
@@ -193,19 +192,21 @@ st.markdown("""
         padding: 2rem;
         border: 1px solid rgba(94, 234, 212, 0.08);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        margin-bottom: 1.5rem;
+        height: 100%;
+        box-sizing: border-box;
     }
     
     .glass-card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-4px);
         border-color: rgba(94, 234, 212, 0.2);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 60px rgba(94, 234, 212, 0.05);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
     
     /* Tumor Cards */
     .tumor-card {
         position: relative;
         overflow: hidden;
+        min-height: 320px;
     }
     
     .tumor-card::before {
@@ -224,13 +225,14 @@ st.markdown("""
     .tumor-card-notumor::before { background: linear-gradient(180deg, #10b981, #059669); }
     
     .tumor-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
+        font-weight: 600;
         margin-bottom: 1rem;
     }
     
@@ -241,17 +243,17 @@ st.markdown("""
     
     .tumor-name {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: #f0fdfa;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.35rem;
     }
     
     .tumor-severity {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 500;
         margin-bottom: 1rem;
-        padding: 0.25rem 0.75rem;
+        padding: 0.2rem 0.65rem;
         border-radius: 50px;
         display: inline-block;
     }
@@ -263,8 +265,8 @@ st.markdown("""
     
     .tumor-desc {
         color: #9ca3af;
-        font-size: 0.9rem;
-        line-height: 1.7;
+        font-size: 0.875rem;
+        line-height: 1.65;
         margin-bottom: 1rem;
     }
     
@@ -276,11 +278,11 @@ st.markdown("""
     
     .tumor-list li {
         color: #6b7280;
-        font-size: 0.85rem;
-        padding: 0.4rem 0;
+        font-size: 0.825rem;
+        padding: 0.35rem 0;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.6rem;
     }
     
     .tumor-list li::before {
@@ -289,19 +291,9 @@ st.markdown("""
         font-weight: 600;
     }
     
-    /* Feature Cards */
-    .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-    }
-    
-    .feature-card {
-        background: rgba(20, 30, 30, 0.4);
-        border-radius: 12px;
-        padding: 1.5rem;
-        border: 1px solid rgba(94, 234, 212, 0.05);
+    /* Info Cards Row */
+    .info-card {
+        min-height: 280px;
     }
     
     .feature-icon {
@@ -320,105 +312,97 @@ st.markdown("""
     .feature-title {
         color: #f0fdfa;
         font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-    
-    .feature-desc {
-        color: #6b7280;
-        font-size: 0.85rem;
-        line-height: 1.5;
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
     }
     
     /* Upload Section */
     .upload-container {
         background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(94, 234, 212, 0.02));
         border: 2px dashed rgba(94, 234, 212, 0.2);
-        border-radius: 20px;
-        padding: 4rem 2rem;
-        text-align: center;
+        border-radius: 16px;
+        padding: 3rem 2rem;
         transition: all 0.3s ease;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
     }
     
     .upload-container:hover {
         border-color: rgba(94, 234, 212, 0.4);
-        box-shadow: 0 0 60px rgba(94, 234, 212, 0.1);
+        box-shadow: 0 0 40px rgba(94, 234, 212, 0.08);
     }
     
     .upload-icon {
-        width: 80px;
-        height: 80px;
+        width: 64px;
+        height: 64px;
         background: rgba(94, 234, 212, 0.1);
-        border-radius: 20px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        margin-bottom: 1.25rem;
+        font-size: 1.5rem;
         color: #5eead4;
     }
     
     .upload-title {
         color: #f0fdfa;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.35rem;
     }
     
     .upload-subtitle {
         color: #6b7280;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
     }
     
     .upload-formats {
         display: flex;
-        justify-content: center;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
+        gap: 0.5rem;
+        margin-top: 1.25rem;
     }
     
     .format-badge {
         background: rgba(94, 234, 212, 0.1);
         color: #5eead4;
-        padding: 0.35rem 0.85rem;
+        padding: 0.3rem 0.75rem;
         border-radius: 6px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 500;
     }
     
     /* Results Section */
     .result-container {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02));
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02));
         border: 1px solid rgba(16, 185, 129, 0.2);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-top: 1.5rem;
+        border-radius: 14px;
+        padding: 1.75rem;
+        margin-top: 1.25rem;
     }
     
     .result-header {
-        text-align: center;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1.25rem;
         border-bottom: 1px solid rgba(94, 234, 212, 0.1);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }
     
     .result-label {
         color: #6b7280;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.35rem;
     }
     
     .result-value {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 2.25rem;
+        font-size: 2rem;
         font-weight: 700;
         color: #10b981;
     }
     
     .result-confidence {
         color: #9ca3af;
-        font-size: 1rem;
-        margin-top: 0.5rem;
+        font-size: 0.95rem;
+        margin-top: 0.35rem;
     }
     
     .result-confidence span {
@@ -428,37 +412,37 @@ st.markdown("""
     
     /* Probability Bars */
     .prob-item {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
     
     .prob-header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
     }
     
     .prob-name {
         color: #e5e7eb;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 500;
     }
     
     .prob-value {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .prob-bar-bg {
         background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        height: 10px;
+        border-radius: 6px;
+        height: 8px;
         overflow: hidden;
     }
     
     .prob-bar {
         height: 100%;
-        border-radius: 8px;
-        transition: width 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 6px;
+        transition: width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .prob-bar-glioma { background: linear-gradient(90deg, #f43f5e, #fb7185); }
@@ -469,9 +453,9 @@ st.markdown("""
     /* Disclaimer */
     .disclaimer {
         background: rgba(245, 158, 11, 0.05);
-        border: 1px solid rgba(245, 158, 11, 0.2);
+        border: 1px solid rgba(245, 158, 11, 0.15);
         border-radius: 12px;
-        padding: 1.25rem 1.75rem;
+        padding: 1.25rem 1.5rem;
         margin-top: 3rem;
         display: flex;
         align-items: flex-start;
@@ -479,8 +463,8 @@ st.markdown("""
     }
     
     .disclaimer-icon {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
         background: rgba(245, 158, 11, 0.2);
         border-radius: 50%;
         display: flex;
@@ -488,14 +472,14 @@ st.markdown("""
         justify-content: center;
         color: #f59e0b;
         font-weight: 700;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         flex-shrink: 0;
         margin-top: 2px;
     }
     
     .disclaimer-text {
         color: #9ca3af;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         line-height: 1.6;
     }
     
@@ -505,23 +489,27 @@ st.markdown("""
     
     /* Footer */
     .footer {
-        text-align: center;
-        padding: 3rem 0;
-        margin-top: 4rem;
+        padding: 2.5rem 0;
+        margin-top: 3rem;
         border-top: 1px solid rgba(94, 234, 212, 0.08);
+    }
+    
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
     .footer-links {
         display: flex;
-        justify-content: center;
         gap: 2rem;
-        margin-bottom: 1.5rem;
     }
     
     .footer-link {
         color: #6b7280;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         transition: color 0.3s ease;
+        cursor: pointer;
     }
     
     .footer-link:hover {
@@ -530,14 +518,19 @@ st.markdown("""
     
     .footer-copyright {
         color: #4b5563;
-        font-size: 0.85rem;
+        font-size: 0.825rem;
     }
     
     /* Divider */
     .divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(94, 234, 212, 0.2), transparent);
-        margin: 4rem 0;
+        background: linear-gradient(90deg, rgba(94, 234, 212, 0.15), rgba(94, 234, 212, 0.05), transparent);
+        margin: 3rem 0;
+    }
+    
+    /* Section Anchor */
+    .section-anchor {
+        scroll-margin-top: 100px;
     }
     
     /* Button Styling */
@@ -545,23 +538,33 @@ st.markdown("""
         background: linear-gradient(135deg, #14b8a6, #0d9488);
         color: #0a0f0f;
         border: none;
-        padding: 1rem 2.5rem;
-        border-radius: 12px;
+        padding: 0.9rem 2rem;
+        border-radius: 10px;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.95rem;
         transition: all 0.3s ease;
         width: 100%;
     }
     
     .stButton>button:hover {
         transform: scale(1.02);
-        box-shadow: 0 15px 40px rgba(20, 184, 166, 0.3);
+        box-shadow: 0 12px 30px rgba(20, 184, 166, 0.25);
     }
     
     /* Hide Streamlit defaults */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    
+    /* Column alignment fix */
+    [data-testid="column"] {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    [data-testid="column"] > div {
+        flex: 1;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -622,24 +625,25 @@ def preprocess_image(image):
         img_array = np.expand_dims(img_array, axis=0)
     return img_array.astype(np.float32)
 
-# Navigation
+# Navigation with anchor links
 st.markdown("""
 <div class="navbar">
     <div class="nav-logo">
         <div class="nav-logo-icon">◉</div>
-        <div class="nav-title">NeuroScan AI</div>
+        <div class="nav-title">BrainTumorAI</div>
     </div>
     <div class="nav-links">
-        <span class="nav-link">Overview</span>
-        <span class="nav-link">Analysis</span>
-        <span class="nav-link">Research</span>
-        <span class="nav-link">Documentation</span>
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#categories" class="nav-link">Categories</a>
+        <a href="#analysis" class="nav-link">Analysis</a>
+        <a href="#documentation" class="nav-link">Documentation</a>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Hero Section
 st.markdown("""
+<div id="overview" class="section-anchor"></div>
 <div class="hero-section">
     <div class="hero-badge">◈ Advanced Neural Network Classification</div>
     <h1 class="hero-title">Brain Tumor <span>Classification</span></h1>
@@ -668,24 +672,24 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Divider
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# About & Model Info
-col1, col2 = st.columns(2)
+# Documentation Section
+st.markdown('<div id="documentation" class="section-anchor"></div>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2, gap="medium")
 
 with col1:
     st.markdown("""
-    <div class="glass-card">
+    <div class="glass-card info-card">
         <div class="feature-icon">◇</div>
-        <div class="feature-title" style="font-size: 1.25rem; margin-bottom: 1rem;">About This Project</div>
-        <div class="tumor-desc">
+        <div class="feature-title">About This Project</div>
+        <p class="tumor-desc">
             This application utilizes a Convolutional Neural Network trained on extensive 
             MRI datasets to classify brain tumors into four categories. Developed as an 
-            educational resource for medical students, researchers, and healthcare professionals 
-            exploring AI-assisted diagnostic methodologies.
-        </div>
-        <ul class="tumor-list" style="margin-top: 1.5rem;">
+            educational resource for medical students, researchers, and healthcare professionals.
+        </p>
+        <ul class="tumor-list">
             <li>Designed for educational purposes</li>
             <li>Research-grade classification accuracy</li>
             <li>Real-time inference capabilities</li>
@@ -696,9 +700,9 @@ with col1:
 
 with col2:
     st.markdown("""
-    <div class="glass-card">
+    <div class="glass-card info-card">
         <div class="feature-icon">◆</div>
-        <div class="feature-title" style="font-size: 1.25rem; margin-bottom: 1rem;">Model Specifications</div>
+        <div class="feature-title">Model Specifications</div>
         <ul class="tumor-list">
             <li><strong style="color: #f0fdfa;">Architecture</strong> — Convolutional Neural Network</li>
             <li><strong style="color: #f0fdfa;">Input Dimensions</strong> — 150 × 150 × 3 (RGB)</li>
@@ -710,10 +714,10 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-# Divider
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Classification Categories Section
+st.markdown('<div id="categories" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="section-header">
     <div class="section-tag">◎ Classification Categories</div>
@@ -722,7 +726,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns(2, gap="medium")
 
 with col1:
     st.markdown(f"""
@@ -733,18 +737,6 @@ with col1:
         <p class="tumor-desc">{TUMOR_INFO['glioma']['description']}</p>
         <ul class="tumor-list">
             {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['glioma']['points']])}
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown(f"""
-    <div class="glass-card tumor-card tumor-card-pituitary">
-        <div class="tumor-icon tumor-icon-pituitary">P</div>
-        <div class="tumor-name">Pituitary</div>
-        <span class="tumor-severity {TUMOR_INFO['pituitary']['severity_class']}">{TUMOR_INFO['pituitary']['severity']}</span>
-        <p class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</p>
-        <ul class="tumor-list">
-            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['pituitary']['points']])}
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -761,7 +753,23 @@ with col2:
         </ul>
     </div>
     """, unsafe_allow_html=True)
-    
+
+col3, col4 = st.columns(2, gap="medium")
+
+with col3:
+    st.markdown(f"""
+    <div class="glass-card tumor-card tumor-card-pituitary">
+        <div class="tumor-icon tumor-icon-pituitary">P</div>
+        <div class="tumor-name">Pituitary</div>
+        <span class="tumor-severity {TUMOR_INFO['pituitary']['severity_class']}">{TUMOR_INFO['pituitary']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['pituitary']['points']])}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
     st.markdown(f"""
     <div class="glass-card tumor-card tumor-card-notumor">
         <div class="tumor-icon tumor-icon-notumor">N</div>
@@ -774,10 +782,10 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-# Divider
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Upload Section
+st.markdown('<div id="analysis" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="section-header">
     <div class="section-tag">◉ Image Analysis</div>
@@ -804,11 +812,11 @@ uploaded_file = st.file_uploader("Upload MRI", type=["png", "jpg", "jpeg"], labe
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
     
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns(2, gap="medium")
     
     with col1:
         st.markdown("""
-        <div class="glass-card" style="text-align: center;">
+        <div class="glass-card">
             <div style="color: #5eead4; font-weight: 600; margin-bottom: 1rem;">◇ Uploaded Scan</div>
         </div>
         """, unsafe_allow_html=True)
@@ -816,12 +824,12 @@ if uploaded_file is not None:
     
     with col2:
         st.markdown("""
-        <div class="glass-card" style="text-align: center;">
+        <div class="glass-card">
             <div style="color: #5eead4; font-weight: 600; margin-bottom: 1rem;">◆ Classification Results</div>
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("▶ Run Analysis", type="primary"):
+        if st.button("Run Analysis", type="primary"):
             with st.spinner("Processing scan..."):
                 progress_bar = st.progress(0)
                 for i in range(100):
@@ -843,7 +851,7 @@ if uploaded_file is not None:
                         <div class="result-value">{class_name.upper()}</div>
                         <div class="result-confidence">Confidence: <span>{confidence:.1%}</span></div>
                     </div>
-                    <div style="color: #6b7280; font-size: 0.85rem; font-weight: 500; margin-bottom: 1rem;">
+                    <div style="color: #6b7280; font-size: 0.8rem; font-weight: 500; margin-bottom: 0.75rem;">
                         Probability Distribution
                     </div>
                 """, unsafe_allow_html=True)
@@ -878,15 +886,16 @@ st.markdown("""
 # Footer
 st.markdown("""
 <div class="footer">
-    <div class="footer-links">
-        <span class="footer-link">Documentation</span>
-        <span class="footer-link">Research</span>
-        <span class="footer-link">GitHub</span>
-        <span class="footer-link">Contact</span>
-    </div>
-    <div class="footer-copyright">
-        © 2024 BrainTumor — Built with TensorFlow & Streamlit
+    <div class="footer-content">
+        <div class="footer-links">
+            <span class="footer-link">Documentation</span>
+            <span class="footer-link">Research</span>
+            <span class="footer-link">GitHub</span>
+            <span class="footer-link">Contact</span>
+        </div>
+        <div class="footer-copyright">
+            © 2024 BrainTumorAI — Built with TensorFlow & Streamlit
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
-
