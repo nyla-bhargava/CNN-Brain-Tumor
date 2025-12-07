@@ -784,9 +784,292 @@ st.markdown("""
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# Documentation Section
-st.markdown('<div id="documentation" class="section-anchor"></div>', unsafe_allow_html=True)
+# Documentation Section (CONTINUED)
+st.markdown("""
+        <h2 class="section-title">Project Documentation</h2>
+        <p class="section-desc">Technical specifications and model architecture details</p>
+    </div>
+    
+    <div class="css-1d391kg" style="display: flex; gap: 2rem; justify-content: center;">
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2, gap="large")
+
+with col1:
+    st.markdown(f"""
+    <div class="glass-card info-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">About This Project</div>
+        <p class="tumor-desc">
+            Educational AI application for brain tumor classification using 
+            Convolutional Neural Networks trained on extensive MRI datasets.
+        </p>
+        <ul class="tumor-list">
+            <li>Developed for medical education</li>
+            <li>Research-grade accuracy</li>
+            <li>Real-time inference</li>
+            <li>Transparent predictions</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="glass-card info-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Model Architecture</div>
+        <ul class="tumor-list">
+            <li><strong>CNN Layers:</strong> Multiple Conv2D + MaxPooling</li>
+            <li><strong>Input:</strong> 150×150×3 RGB MRI images</li>
+            <li><strong>Output:</strong> Softmax (4 classes)</li>
+            <li><strong>Framework:</strong> TensorFlow/Keras 2.x</li>
+            <li><strong>Preprocessing:</strong> Rescale [0,1] normalization</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+# Categories Section
+st.markdown('<div id="categories" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="section-padding">
     <div class="section-header">
-        <div class="section-tag">Documentation</div
+        <div class="section-tag">Classification Categories</div>
+        <h2 class="section-title">Tumor Type Reference</h2>
+        <p class="section-desc">Detailed overview of the four brain tumor classifications</p>
+    </div>
+    
+    <div class="css-1d391kg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; justify-items: center;">
+""", unsafe_allow_html=True)
+
+# Tumor Cards (2x2 Grid - Perfectly Aligned)
+col1, col2 = st.columns(2, gap="large")
+with col1:
+    st.markdown(f"""
+    <div class="glass-card tumor-card tumor-card-glioma">
+        <div class="tumor-icon tumor-icon-glioma">{TUMOR_INFO['glioma']['icon']}</div>
+        <div class="tumor-name">Glioma</div>
+        <span class="tumor-severity {TUMOR_INFO['glioma']['severity_class']}">{TUMOR_INFO['glioma']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['glioma']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['glioma']['points']])}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="glass-card tumor-card tumor-card-meningioma">
+        <div class="tumor-icon tumor-icon-meningioma">{TUMOR_INFO['meningioma']['icon']}</div>
+        <div class="tumor-name">Meningioma</div>
+        <span class="tumor-severity {TUMOR_INFO['meningioma']['severity_class']}">{TUMOR_INFO['meningioma']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['meningioma']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['meningioma']['points']])}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+col3, col4 = st.columns(2, gap="large")
+with col3:
+    st.markdown(f"""
+    <div class="glass-card tumor-card tumor-card-pituitary">
+        <div class="tumor-icon tumor-icon-pituitary">{TUMOR_INFO['pituitary']['icon']}</div>
+        <div class="tumor-name">Pituitary</div>
+        <span class="tumor-severity {TUMOR_INFO['pituitary']['severity_class']}">{TUMOR_INFO['pituitary']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['pituitary']['points']])}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown(f"""
+    <div class="glass-card tumor-card tumor-card-notumor">
+        <div class="tumor-icon tumor-icon-notumor">{TUMOR_INFO['notumor']['icon']}</div>
+        <div class="tumor-name">No Tumor</div>
+        <span class="tumor-severity {TUMOR_INFO['notumor']['severity_class']}">{TUMOR_INFO['notumor']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['notumor']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['notumor']['points']])}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+# Analysis Section
+st.markdown('<div id="analysis" class="section-anchor"></div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="section-padding">
+    <div class="section-header">
+        <div class="section-tag">MRI Analysis</div>
+        <h2 class="section-title">Upload & Analyze</h2>
+        <p class="section-desc">Submit brain MRI scans for instant classification</p>
+    </div>
+    
+    <div class="upload-zone">
+""", unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader(
+    "Upload MRI Scan", 
+    type=["png", "jpg", "jpeg"], 
+    label_visibility="collapsed",
+    help="Supported formats: PNG, JPG, JPEG (Max 10MB)"
+)
+
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).convert('RGB')
+    
+    # Results Layout - Perfect 50/50 Split
+    col1, col2 = st.columns([1, 1], gap="large")
+    
+    with col1:
+        st.markdown("""
+        <div class="glass-card" style="height: 500px; display: flex; flex-direction: column; justify-content: center;">
+            <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; text-align: center;">
+                🩻 Uploaded MRI Scan
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(image, use_container_width=True, clamp=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="glass-card" style="height: 500px; display: flex; flex-direction: column; justify-content: center;">
+            <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; text-align: center;">
+                🎯 Classification Results
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("🔬 Run Neural Network Analysis", type="primary"):
+            with st.spinner("🧠 Analyzing MRI scan with CNN..."):
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+                
+                for i in range(100):
+                    # Simulate processing stages
+                    if i < 25:
+                        status_text.text("🔍 Preprocessing image...")
+                    elif i < 50:
+                        status_text.text("🧠 Loading neural network...")
+                    elif i < 80:
+                        status_text.text("⚙️ Running inference...")
+                    else:
+                        status_text.text("✅ Generating results...")
+                    
+                    time.sleep(0.03)
+                    progress_bar.progress(i + 1)
+                
+                status_text.empty()
+                progress_bar.empty()
+                
+                # Run actual prediction
+                processed_image = preprocess_image(image)
+                prediction = model.predict(processed_image, verbose=0)
+                predicted_class_idx = np.argmax(prediction[0])
+                confidence = prediction[0][predicted_class_idx]
+                class_name = CLASS_NAMES[predicted_class_idx]
+                
+                # Main Result
+                st.markdown(f"""
+                <div class="result-main">
+                    <div class="result-main-icon">🎯</div>
+                    <div class="result-main-title">{class_name.upper()}</div>
+                    <div class="result-main-confidence">
+                        Confidence: <strong>{confidence:.1%}</strong>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Probability Distribution
+                st.markdown("""
+                <div class="prob-container">
+                    <div style="color: #9ca3af; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center;">
+                        📊 Probability Distribution
+                    </div>
+                """, unsafe_allow_html=True)
+                
+                for cls, score in zip(CLASS_NAMES, prediction[0]):
+                    color = CLASS_COLORS[cls]
+                    st.markdown(f"""
+                    <div class="prob-item">
+                        <div class="prob-header">
+                            <span class="prob-name">{cls.capitalize()}</span>
+                            <span class="prob-value" style="color: {color};">{score:.1%}</span>
+                        </div>
+                        <div class="prob-bar-bg">
+                            <div class="prob-bar prob-bar-{cls}" style="width: {score*100:.0f}%;"></div>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                
+                st.markdown("</div>", unsafe_allow_html=True)
+
+else:
+    st.markdown("""
+    <div class="upload-container">
+        <div class="upload-icon">⬆️</div>
+        <div class="upload-title">Drop your MRI scan here</div>
+        <div class="upload-subtitle">or click to browse (PNG, JPG, JPEG)</div>
+        <div class="upload-formats">
+            <span class="format-badge">PNG</span>
+            <span class="format-badge">JPG</span>
+            <span class="format-badge">JPEG</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+# Disclaimer
+st.markdown("""
+<div class="disclaimer">
+    <div class="disclaimer-icon">⚠️</div>
+    <div class="disclaimer-text">
+        <strong>Medical Disclaimer:</strong> This AI application is developed exclusively for 
+        <strong>educational and research purposes only</strong>. It should <strong>never</strong> 
+        be used as a substitute for professional medical diagnosis, treatment, or clinical decision-making. 
+        Always consult qualified healthcare professionals for medical advice.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Footer
+st.markdown("""
+<div class="footer">
+    <div class="footer-links">
+        <span class="footer-link">Documentation</span>
+        <span class="footer-link">Research Paper</span>
+        <span class="footer-link">GitHub</span>
+        <span class="footer-link">Contact</span>
+    </div>
+    <div class="footer-copyright">
+        © 2025 BrainTumorAI — Built with ❤️ using TensorFlow, Keras & Streamlit
+    </div>
+</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Spacer for fixed navbar
+st.markdown("""
+<div style="height: 120px;"></div>
+""", unsafe_allow_html=True)
