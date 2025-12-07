@@ -147,6 +147,7 @@ st.markdown("""
         color: #f0fdfa;
         margin-bottom: 1.5rem;
         line-height: 1.1;
+        text-align: center;
     }
     
     .hero-title span {
@@ -381,11 +382,6 @@ st.markdown("""
     }
     
     /* Upload Section */
-    .upload-zone {
-        max-width: 800px;
-        margin: 0 auto 3rem;
-    }
-    
     .upload-container {
         background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(94, 234, 212, 0.03));
         border: 2px dashed rgba(94, 234, 212, 0.25);
@@ -393,7 +389,8 @@ st.markdown("""
         padding: 4rem 3rem;
         text-align: center;
         transition: all 0.4s ease;
-        margin: 2rem 0;
+        margin: 2rem auto;
+        max-width: 800px;
     }
     
     .upload-container:hover {
@@ -421,12 +418,14 @@ st.markdown("""
         font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
+        text-align: center;
     }
     
     .upload-subtitle {
         color: #9ca3af;
         font-size: 1rem;
         margin-bottom: 2rem;
+        text-align: center;
     }
     
     .upload-formats {
@@ -446,11 +445,6 @@ st.markdown("""
     }
     
     /* Results Section */
-    .results-container {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-    
     .result-main {
         background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.05));
         border: 1px solid rgba(16, 185, 129, 0.25);
@@ -479,12 +473,14 @@ st.markdown("""
         font-weight: 800;
         color: #10b981;
         margin-bottom: 0.75rem;
+        text-align: center;
     }
     
     .result-main-confidence {
         font-size: 1.3rem;
         color: #059669;
         font-weight: 700;
+        text-align: center;
     }
     
     /* Probability Bars */
@@ -542,7 +538,7 @@ st.markdown("""
         border: 1px solid rgba(245, 158, 11, 0.2);
         border-radius: 16px;
         padding: 2rem 2.5rem;
-        margin: 4rem auto 4rem;
+        margin: 4rem auto;
         max-width: 900px;
         display: flex;
         align-items: flex-start;
@@ -612,6 +608,7 @@ st.markdown("""
         color: #6b7280;
         font-size: 0.9rem;
         font-weight: 500;
+        text-align: center;
     }
     
     .divider {
@@ -650,6 +647,22 @@ st.markdown("""
     .stImage > img {
         border-radius: 16px !important;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* Hide file uploader label */
+    .stFileUploader > label {
+        display: none;
+    }
+    
+    .stFileUploader > div {
+        background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(94, 234, 212, 0.03)) !important;
+        border: 2px dashed rgba(94, 234, 212, 0.25) !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+    }
+    
+    .stFileUploader > div:hover {
+        border-color: rgba(94, 234, 212, 0.5) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -766,20 +779,19 @@ st.markdown("""
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Documentation Section
+st.markdown('<div id="documentation" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div id="documentation" class="section-anchor"></div>
-<div class="section-padding">
-    <div class="section-header">
-        <div class="section-tag">Technical Overview</div>
-        <h2 class="section-title">Project Documentation</h2>
-        <p class="section-desc">Technical specifications and model architecture details</p>
-    </div>
+<div class="section-header">
+    <div class="section-tag">Technical Overview</div>
+    <h2 class="section-title">Project Documentation</h2>
+    <p class="section-desc">Technical specifications and model architecture details</p>
+</div>
 """, unsafe_allow_html=True)
 
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown(f"""
+    st.markdown("""
     <div class="glass-card info-card">
         <div class="feature-icon">◇</div>
         <div class="feature-title">About This Project</div>
@@ -797,7 +809,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
-    st.markdown(f"""
+    st.markdown("""
     <div class="glass-card info-card">
         <div class="feature-icon">◆</div>
         <div class="feature-title">Model Architecture</div>
@@ -811,19 +823,16 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("</div>", unsafe_allow_html=True)
-
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Categories Section
 st.markdown('<div id="categories" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="section-padding">
-    <div class="section-header">
-        <div class="section-tag">Classification Categories</div>
-        <h2 class="section-title">Tumor Type Reference</h2>
-        <p class="section-desc">Detailed overview of the four brain tumor classifications</p>
-    </div>
+<div class="section-header">
+    <div class="section-tag">Classification Categories</div>
+    <h2 class="section-title">Tumor Type Reference</h2>
+    <p class="section-desc">Detailed overview of the four brain tumor classifications</p>
+</div>
 """, unsafe_allow_html=True)
 
 col1, col2 = st.columns(2, gap="large")
@@ -880,21 +889,16 @@ with col4:
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("</div>", unsafe_allow_html=True)
-
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Analysis Section
 st.markdown('<div id="analysis" class="section-anchor"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="section-padding">
-    <div class="section-header">
-        <div class="section-tag">MRI Analysis</div>
-        <h2 class="section-title">Upload & Analyze</h2>
-        <p class="section-desc">Submit brain MRI scans for instant classification</p>
-    </div>
-    
-    <div class="upload-zone">
+<div class="section-header">
+    <div class="section-tag">MRI Analysis</div>
+    <h2 class="section-title">Upload & Analyze</h2>
+    <p class="section-desc">Submit brain MRI scans for instant classification</p>
+</div>
 """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
@@ -911,17 +915,15 @@ if uploaded_file is not None:
     
     with col1:
         st.markdown("""
-        <div class="glass-card" style="text-align: center;">
-            <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem;">
-                ◎ Uploaded MRI Scan
-            </div>
+        <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; text-align: center;">
+            ◎ Uploaded MRI Scan
         </div>
         """, unsafe_allow_html=True)
         st.image(image, use_container_width=True, clamp=True)
     
     with col2:
         st.markdown("""
-        <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; text-align: center;">
+        <div style="color: #5eead4; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; text-align: center;">
             ◉ Classification Results
         </div>
         """, unsafe_allow_html=True)
@@ -985,25 +987,6 @@ if uploaded_file is not None:
                     """, unsafe_allow_html=True)
                 
                 st.markdown("</div>", unsafe_allow_html=True)
-
-else:
-    st.markdown("""
-    <div class="upload-container">
-        <div class="upload-icon">◎</div>
-        <div class="upload-title">Drop your MRI scan here</div>
-        <div class="upload-subtitle">or click to browse (PNG, JPG, JPEG)</div>
-        <div class="upload-formats">
-            <span class="format-badge">PNG</span>
-            <span class="format-badge">JPG</span>
-            <span class="format-badge">JPEG</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("""
-    </div>
-</div>
-""", unsafe_allow_html=True)
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
