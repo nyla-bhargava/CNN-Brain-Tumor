@@ -11,17 +11,20 @@ def load_model():
 
 model = load_model()
 
-# Preprocess image (change 224,224 to your model's input size)
-IMG_SIZE = (224, 224)  # EDIT THIS if different
-CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
-
+# Preprocess image 
 def preprocess_image(image):
     image = image.resize(IMG_SIZE)
-    img_array = np.array(image) / 255.0
+    img_array = np.array(image, dtype=np.float32) / 255.0
+    
+    # Handle grayscale
     if len(img_array.shape) == 2:
         img_array = np.stack([img_array]*3, axis=-1)
-    img_array = np.expand_dims(img_array, axis=0)
-    return img_array
+    
+    # Ensure correct shape: (1, height, width, 3)
+    if len(img_array.shape) == 3:
+        img_array = np.expand_dims(img_array, axis=0)
+    
+    return img_array.astype(np.float32)
 
 # Streamlit UI
 st.title("🧠 CNN Model Demo")
