@@ -161,7 +161,7 @@ st.markdown("""
         color: #a1a1aa;
         font-size: 1.2rem;
         font-weight: 300;
-        max-width: 700px;
+        max-width: 1000px;
         margin: 0 auto 3rem;
         line-height: 1.75;
         text-align: center;
