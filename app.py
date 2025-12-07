@@ -13,7 +13,7 @@ model = load_model()
 
 # Preprocess image (change 224,224 to your model's input size)
 IMG_SIZE = (224, 224)  # EDIT THIS if different
-CLASS_NAMES = ["Class 0", "Class 1"]  # EDIT WITH YOUR CLASSES
+CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
 
 def preprocess_image(image):
     image = image.resize(IMG_SIZE)
