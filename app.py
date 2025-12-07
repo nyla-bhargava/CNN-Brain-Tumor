@@ -6,212 +6,562 @@ import time
 
 # Page config
 st.set_page_config(
-    page_title="Brain Tumor Classifier",
-    page_icon="🧠",
+    page_title="Neural MRI Analysis",
+    page_icon="◉",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for modern medical theme
+# Custom CSS - Sophisticated Teal/Slate Theme
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
     
-    * { font-family: 'Inter', sans-serif; }
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
     
     .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
+        background: linear-gradient(160deg, #0a0f0f 0%, #0d1b1b 40%, #112020 100%);
     }
     
-    .main-header {
-        background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(59, 130, 246, 0.8));
+    /* Navigation Bar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: rgba(13, 27, 27, 0.8);
         backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 3rem;
-        margin-bottom: 2rem;
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        text-align: center;
+        border-bottom: 1px solid rgba(94, 234, 212, 0.1);
+        margin: -1rem -1rem 2rem -1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
     
-    .main-title {
-        font-size: 3.5rem;
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .nav-logo-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #14b8a6, #5eead4);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #0a0f0f;
         font-weight: 700;
-        background: linear-gradient(135deg, #ffffff, #93c5fd);
+    }
+    
+    .nav-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #f0fdfa;
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    
+    .nav-link {
+        color: #5eead4;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        background: rgba(94, 234, 212, 0.1);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        text-align: center;
+        padding: 4rem 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .hero-badge {
+        display: inline-block;
+        background: rgba(94, 234, 212, 0.1);
+        border: 1px solid rgba(94, 234, 212, 0.3);
+        color: #5eead4;
+        padding: 0.5rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .hero-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 4rem;
+        font-weight: 700;
+        color: #f0fdfa;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+    
+    .hero-title span {
+        background: linear-gradient(135deg, #14b8a6, #5eead4, #99f6e4);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0.5rem;
     }
     
-    .subtitle {
-        color: #94a3b8;
-        font-size: 1.2rem;
+    .hero-subtitle {
+        color: #6b7280;
+        font-size: 1.25rem;
         font-weight: 300;
-    }
-    
-    .stats-row {
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        margin-top: 2rem;
-    }
-    
-    .stat-item {
-        text-align: center;
-    }
-    
-    .stat-value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #60a5fa;
-    }
-    
-    .stat-label {
-        color: #94a3b8;
-        font-size: 0.9rem;
-    }
-    
-    .glass-card {
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        padding: 1.5rem;
-        border: 1px solid rgba(255,255,255,0.1);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        margin-bottom: 1rem;
-    }
-    
-    .glass-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        border-color: rgba(255,255,255,0.2);
-    }
-    
-    .tumor-card-glioma { border-left: 4px solid #ef4444; }
-    .tumor-card-meningioma { border-left: 4px solid #f97316; }
-    .tumor-card-pituitary { border-left: 4px solid #a855f7; }
-    .tumor-card-notumor { border-left: 4px solid #22c55e; }
-    
-    .tumor-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-    }
-    
-    .tumor-desc {
-        color: #94a3b8;
-        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto 2rem;
         line-height: 1.6;
     }
     
-    .upload-zone {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-        border: 2px dashed rgba(96, 165, 250, 0.5);
-        border-radius: 24px;
-        padding: 3rem;
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(94, 234, 212, 0.1);
+    }
+    
+    .hero-stat {
+        text-align: center;
+    }
+    
+    .hero-stat-value {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #5eead4;
+        line-height: 1;
+    }
+    
+    .hero-stat-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        font-weight: 400;
+    }
+    
+    /* Section Headers */
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .section-tag {
+        color: #14b8a6;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+    
+    .section-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.25rem;
+        font-weight: 600;
+        color: #f0fdfa;
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-desc {
+        color: #6b7280;
+        font-size: 1rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    /* Glass Cards */
+    .glass-card {
+        background: rgba(20, 30, 30, 0.6);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid rgba(94, 234, 212, 0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-bottom: 1.5rem;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(94, 234, 212, 0.2);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 60px rgba(94, 234, 212, 0.05);
+    }
+    
+    /* Tumor Cards */
+    .tumor-card {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .tumor-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        border-radius: 3px 0 0 3px;
+    }
+    
+    .tumor-card-glioma::before { background: linear-gradient(180deg, #f43f5e, #e11d48); }
+    .tumor-card-meningioma::before { background: linear-gradient(180deg, #f59e0b, #d97706); }
+    .tumor-card-pituitary::before { background: linear-gradient(180deg, #a855f7, #7c3aed); }
+    .tumor-card-notumor::before { background: linear-gradient(180deg, #10b981, #059669); }
+    
+    .tumor-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .tumor-icon-glioma { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+    .tumor-icon-meningioma { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .tumor-icon-pituitary { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .tumor-icon-notumor { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    
+    .tumor-name {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #f0fdfa;
+        margin-bottom: 0.25rem;
+    }
+    
+    .tumor-severity {
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        display: inline-block;
+    }
+    
+    .severity-high { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+    .severity-moderate { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .severity-variable { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .severity-none { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    
+    .tumor-desc {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+    
+    .tumor-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .tumor-list li {
+        color: #6b7280;
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .tumor-list li::before {
+        content: '→';
+        color: #5eead4;
+        font-weight: 600;
+    }
+    
+    /* Feature Cards */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .feature-card {
+        background: rgba(20, 30, 30, 0.4);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(94, 234, 212, 0.05);
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(94, 234, 212, 0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5eead4;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-title {
+        color: #f0fdfa;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-desc {
+        color: #6b7280;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    /* Upload Section */
+    .upload-container {
+        background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(94, 234, 212, 0.02));
+        border: 2px dashed rgba(94, 234, 212, 0.2);
+        border-radius: 20px;
+        padding: 4rem 2rem;
         text-align: center;
         transition: all 0.3s ease;
         margin: 2rem 0;
     }
     
-    .upload-zone:hover {
-        border-color: #60a5fa;
-        box-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
+    .upload-container:hover {
+        border-color: rgba(94, 234, 212, 0.4);
+        box-shadow: 0 0 60px rgba(94, 234, 212, 0.1);
     }
     
-    .result-card {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
-        border: 1px solid rgba(34, 197, 94, 0.3);
+    .upload-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(94, 234, 212, 0.1);
         border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: #5eead4;
+    }
+    
+    .upload-title {
+        color: #f0fdfa;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .upload-subtitle {
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+    
+    .upload-formats {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+    
+    .format-badge {
+        background: rgba(94, 234, 212, 0.1);
+        color: #5eead4;
+        padding: 0.35rem 0.85rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    /* Results Section */
+    .result-container {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02));
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 16px;
         padding: 2rem;
         margin-top: 1.5rem;
     }
     
-    .prediction-main {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #22c55e;
+    .result-header {
         text-align: center;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(94, 234, 212, 0.1);
+        margin-bottom: 1.5rem;
     }
     
-    .confidence-bar-container {
-        background: rgba(255,255,255,0.1);
-        border-radius: 10px;
-        height: 12px;
-        margin: 0.5rem 0;
-        overflow: hidden;
+    .result-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
     }
     
-    .confidence-bar {
-        height: 100%;
-        border-radius: 10px;
-        transition: width 1s ease-out;
+    .result-value {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #10b981;
     }
     
-    .bar-glioma { background: linear-gradient(90deg, #ef4444, #f87171); }
-    .bar-meningioma { background: linear-gradient(90deg, #f97316, #fb923c); }
-    .bar-pituitary { background: linear-gradient(90deg, #a855f7, #c084fc); }
-    .bar-notumor { background: linear-gradient(90deg, #22c55e, #4ade80); }
-    
-    .about-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 2rem;
+    .result-confidence {
+        color: #9ca3af;
+        font-size: 1rem;
+        margin-top: 0.5rem;
     }
     
-    .section-title {
-        font-size: 1.5rem;
+    .result-confidence span {
+        color: #5eead4;
         font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 1rem;
+    }
+    
+    /* Probability Bars */
+    .prob-item {
+        margin-bottom: 1.25rem;
+    }
+    
+    .prob-header {
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
     }
     
-    .bullet-point {
-        color: #94a3b8;
-        padding: 0.3rem 0;
-        font-size: 0.95rem;
+    .prob-name {
+        color: #e5e7eb;
+        font-size: 0.9rem;
+        font-weight: 500;
     }
     
-    .disclaimer {
-        background: rgba(251, 191, 36, 0.1);
-        border: 1px solid rgba(251, 191, 36, 0.3);
-        border-radius: 12px;
-        padding: 1rem 1.5rem;
-        margin-top: 2rem;
-        color: #fbbf24;
+    .prob-value {
+        font-weight: 600;
         font-size: 0.9rem;
     }
     
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    .prob-bar-bg {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        height: 10px;
+        overflow: hidden;
+    }
     
+    .prob-bar {
+        height: 100%;
+        border-radius: 8px;
+        transition: width 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .prob-bar-glioma { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+    .prob-bar-meningioma { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .prob-bar-pituitary { background: linear-gradient(90deg, #a855f7, #c084fc); }
+    .prob-bar-notumor { background: linear-gradient(90deg, #10b981, #34d399); }
+    
+    /* Disclaimer */
+    .disclaimer {
+        background: rgba(245, 158, 11, 0.05);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 12px;
+        padding: 1.25rem 1.75rem;
+        margin-top: 3rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .disclaimer-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(245, 158, 11, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #f59e0b;
+        font-weight: 700;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    
+    .disclaimer-text {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .disclaimer-text strong {
+        color: #f59e0b;
+    }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        padding: 3rem 0;
+        margin-top: 4rem;
+        border-top: 1px solid rgba(94, 234, 212, 0.08);
+    }
+    
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-link {
+        color: #6b7280;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-link:hover {
+        color: #5eead4;
+    }
+    
+    .footer-copyright {
+        color: #4b5563;
+        font-size: 0.85rem;
+    }
+    
+    /* Divider */
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(94, 234, 212, 0.2), transparent);
+        margin: 4rem 0;
+    }
+    
+    /* Button Styling */
     .stButton>button {
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-        color: white;
+        background: linear-gradient(135deg, #14b8a6, #0d9488);
+        color: #0a0f0f;
         border: none;
-        padding: 1rem 3rem;
+        padding: 1rem 2.5rem;
         border-radius: 12px;
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 1rem;
         transition: all 0.3s ease;
         width: 100%;
     }
     
     .stButton>button:hover {
         transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 15px 40px rgba(20, 184, 166, 0.3);
     }
     
-    .stSpinner > div {
-        border-color: #3b82f6 transparent transparent transparent;
-    }
+    /* Hide Streamlit defaults */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -226,36 +576,40 @@ model = load_model()
 IMG_SIZE = (150, 150)
 CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
 CLASS_COLORS = {
-    "glioma": "#ef4444",
-    "meningioma": "#f97316", 
+    "glioma": "#f43f5e",
+    "meningioma": "#f59e0b",
     "pituitary": "#a855f7",
-    "notumor": "#22c55e"
+    "notumor": "#10b981"
 }
 
 TUMOR_INFO = {
     "glioma": {
-        "icon": "🔴",
-        "severity": "High",
-        "description": "Arises from glial cells in the brain and spinal cord. Most common primary brain tumor.",
-        "bullets": ["• Originates from glial cells", "• 30% of all brain tumors", "• Requires immediate attention", "• Various grades (I-IV)"]
+        "icon": "G",
+        "severity": "High Risk",
+        "severity_class": "severity-high",
+        "description": "Originates from glial cells in the brain and spinal cord. Represents approximately 30% of all brain tumors and 80% of malignant brain tumors.",
+        "points": ["Originates from glial cells", "Most common primary brain tumor", "Requires immediate clinical attention", "Classified in grades I through IV"]
     },
     "meningioma": {
-        "icon": "🟠", 
+        "icon": "M",
         "severity": "Moderate",
-        "description": "Develops from meninges, the protective membranes surrounding the brain and spinal cord.",
-        "bullets": ["• Usually benign (90%)", "• Slow-growing tumor", "• Most common in adults", "• Often discovered incidentally"]
+        "severity_class": "severity-moderate",
+        "description": "Develops from the meninges, the protective membranes surrounding the brain and spinal cord. Usually grows slowly.",
+        "points": ["Typically benign in 90% of cases", "Slow-growing neoplasm", "Most common in adults 40-70", "Often discovered incidentally"]
     },
     "pituitary": {
-        "icon": "🟣",
+        "icon": "P",
         "severity": "Variable",
-        "description": "Forms in the pituitary gland and can affect hormone production throughout the body.",
-        "bullets": ["• Affects hormone levels", "• Usually non-cancerous", "• 10-15% of brain tumors", "• Treatable with medication"]
+        "severity_class": "severity-variable",
+        "description": "Forms in the pituitary gland and can significantly affect hormone production throughout the body.",
+        "points": ["Affects hormonal balance", "Usually non-cancerous growth", "Accounts for 10-15% of brain tumors", "Often treatable with medication"]
     },
     "notumor": {
-        "icon": "🟢",
-        "severity": "None",
-        "description": "No tumor detected. The MRI scan shows normal brain tissue without abnormal growths.",
-        "bullets": ["• Healthy brain tissue", "• No abnormalities detected", "• Regular checkups advised", "• Maintain healthy lifestyle"]
+        "icon": "N",
+        "severity": "Normal",
+        "severity_class": "severity-none",
+        "description": "No tumor detected in the scan. The MRI shows normal brain tissue without any abnormal growths or masses.",
+        "points": ["Healthy brain tissue observed", "No abnormalities detected", "Continue regular checkups", "Maintain healthy lifestyle"]
     }
 }
 
@@ -268,127 +622,180 @@ def preprocess_image(image):
         img_array = np.expand_dims(img_array, axis=0)
     return img_array.astype(np.float32)
 
-# Hero Header
+# Navigation
 st.markdown("""
-<div class="main-header">
-    <div class="main-title">🧠 Brain Tumor Classifier</div>
-    <div class="subtitle">Advanced CNN-Powered Medical Image Analysis</div>
-    <div class="stats-row">
-        <div class="stat-item">
-            <div class="stat-value">CNN</div>
-            <div class="stat-label">Architecture</div>
+<div class="navbar">
+    <div class="nav-logo">
+        <div class="nav-logo-icon">◉</div>
+        <div class="nav-title">NeuroScan AI</div>
+    </div>
+    <div class="nav-links">
+        <span class="nav-link">Overview</span>
+        <span class="nav-link">Analysis</span>
+        <span class="nav-link">Research</span>
+        <span class="nav-link">Documentation</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Hero Section
+st.markdown("""
+<div class="hero-section">
+    <div class="hero-badge">◈ Advanced Neural Network Classification</div>
+    <h1 class="hero-title">Brain Tumor <span>Classification</span></h1>
+    <p class="hero-subtitle">
+        Leveraging deep convolutional neural networks for accurate MRI-based 
+        brain tumor detection and classification across four distinct categories.
+    </p>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-value">CNN</div>
+            <div class="hero-stat-label">Architecture</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value">4</div>
-            <div class="stat-label">Classes</div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">4</div>
+            <div class="hero-stat-label">Classifications</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value">150×150</div>
-            <div class="stat-label">Input Size</div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">150²</div>
+            <div class="hero-stat-label">Input Resolution</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value">Real-time</div>
-            <div class="stat-label">Prediction</div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">&lt;2s</div>
+            <div class="hero-stat-label">Analysis Time</div>
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# About Section
+# Divider
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+# About & Model Info
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("""
     <div class="glass-card">
-        <div class="section-title">👨‍⚕️ About This Project</div>
+        <div class="feature-icon">◇</div>
+        <div class="feature-title" style="font-size: 1.25rem; margin-bottom: 1rem;">About This Project</div>
         <div class="tumor-desc">
-            This deep learning application uses a Convolutional Neural Network (CNN) 
-            trained on thousands of MRI scans to classify brain tumors into four categories.
-            Designed for medical students, researchers, and healthcare professionals as an
-            educational tool to understand AI-assisted diagnosis.
+            This application utilizes a Convolutional Neural Network trained on extensive 
+            MRI datasets to classify brain tumors into four categories. Developed as an 
+            educational resource for medical students, researchers, and healthcare professionals 
+            exploring AI-assisted diagnostic methodologies.
         </div>
-        <div style="margin-top: 1rem;">
-            <div class="bullet-point">🎓 Educational purpose only</div>
-            <div class="bullet-point">🔬 Research-grade accuracy</div>
-            <div class="bullet-point">⚡ Real-time classification</div>
-        </div>
+        <ul class="tumor-list" style="margin-top: 1.5rem;">
+            <li>Designed for educational purposes</li>
+            <li>Research-grade classification accuracy</li>
+            <li>Real-time inference capabilities</li>
+            <li>Transparent probability outputs</li>
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
     <div class="glass-card">
-        <div class="section-title">📊 Model Statistics</div>
-        <div class="bullet-point">📈 <strong>Architecture:</strong> Convolutional Neural Network</div>
-        <div class="bullet-point">🖼️ <strong>Input Size:</strong> 150 × 150 pixels (RGB)</div>
-        <div class="bullet-point">🏷️ <strong>Classes:</strong> Glioma, Meningioma, Pituitary, No Tumor</div>
-        <div class="bullet-point">📚 <strong>Dataset:</strong> Brain Tumor MRI Dataset</div>
-        <div class="bullet-point">🎯 <strong>Output:</strong> Softmax probabilities</div>
-        <div class="bullet-point">⚙️ <strong>Framework:</strong> TensorFlow / Keras</div>
+        <div class="feature-icon">◆</div>
+        <div class="feature-title" style="font-size: 1.25rem; margin-bottom: 1rem;">Model Specifications</div>
+        <ul class="tumor-list">
+            <li><strong style="color: #f0fdfa;">Architecture</strong> — Convolutional Neural Network</li>
+            <li><strong style="color: #f0fdfa;">Input Dimensions</strong> — 150 × 150 × 3 (RGB)</li>
+            <li><strong style="color: #f0fdfa;">Output Layer</strong> — Softmax (4 classes)</li>
+            <li><strong style="color: #f0fdfa;">Framework</strong> — TensorFlow / Keras</li>
+            <li><strong style="color: #f0fdfa;">Dataset</strong> — Brain Tumor MRI Collection</li>
+            <li><strong style="color: #f0fdfa;">Preprocessing</strong> — Normalized [0, 1]</li>
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
-# Tumor Classes Grid
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown('<div class="section-title" style="text-align:center; font-size:1.8rem;">📋 Tumor Classification Categories</div>', unsafe_allow_html=True)
+# Divider
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+# Classification Categories Section
+st.markdown("""
+<div class="section-header">
+    <div class="section-tag">◎ Classification Categories</div>
+    <h2 class="section-title">Tumor Type Reference</h2>
+    <p class="section-desc">Understanding the four classification categories used by the neural network</p>
+</div>
+""", unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(f"""
-    <div class="glass-card tumor-card-glioma">
-        <div class="tumor-title">{TUMOR_INFO['glioma']['icon']} Glioma</div>
-        <div style="color: #ef4444; font-size: 0.8rem; margin-bottom: 0.5rem;">Severity: {TUMOR_INFO['glioma']['severity']}</div>
-        <div class="tumor-desc">{TUMOR_INFO['glioma']['description']}</div>
-        <div style="margin-top: 0.8rem; font-size: 0.85rem; color: #cbd5e1;">
-            {'<br>'.join(TUMOR_INFO['glioma']['bullets'])}
-        </div>
+    <div class="glass-card tumor-card tumor-card-glioma">
+        <div class="tumor-icon tumor-icon-glioma">G</div>
+        <div class="tumor-name">Glioma</div>
+        <span class="tumor-severity {TUMOR_INFO['glioma']['severity_class']}">{TUMOR_INFO['glioma']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['glioma']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['glioma']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown(f"""
-    <div class="glass-card tumor-card-pituitary">
-        <div class="tumor-title">{TUMOR_INFO['pituitary']['icon']} Pituitary</div>
-        <div style="color: #a855f7; font-size: 0.8rem; margin-bottom: 0.5rem;">Severity: {TUMOR_INFO['pituitary']['severity']}</div>
-        <div class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</div>
-        <div style="margin-top: 0.8rem; font-size: 0.85rem; color: #cbd5e1;">
-            {'<br>'.join(TUMOR_INFO['pituitary']['bullets'])}
-        </div>
+    <div class="glass-card tumor-card tumor-card-pituitary">
+        <div class="tumor-icon tumor-icon-pituitary">P</div>
+        <div class="tumor-name">Pituitary</div>
+        <span class="tumor-severity {TUMOR_INFO['pituitary']['severity_class']}">{TUMOR_INFO['pituitary']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['pituitary']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['pituitary']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown(f"""
-    <div class="glass-card tumor-card-meningioma">
-        <div class="tumor-title">{TUMOR_INFO['meningioma']['icon']} Meningioma</div>
-        <div style="color: #f97316; font-size: 0.8rem; margin-bottom: 0.5rem;">Severity: {TUMOR_INFO['meningioma']['severity']}</div>
-        <div class="tumor-desc">{TUMOR_INFO['meningioma']['description']}</div>
-        <div style="margin-top: 0.8rem; font-size: 0.85rem; color: #cbd5e1;">
-            {'<br>'.join(TUMOR_INFO['meningioma']['bullets'])}
-        </div>
+    <div class="glass-card tumor-card tumor-card-meningioma">
+        <div class="tumor-icon tumor-icon-meningioma">M</div>
+        <div class="tumor-name">Meningioma</div>
+        <span class="tumor-severity {TUMOR_INFO['meningioma']['severity_class']}">{TUMOR_INFO['meningioma']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['meningioma']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['meningioma']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown(f"""
-    <div class="glass-card tumor-card-notumor">
-        <div class="tumor-title">{TUMOR_INFO['notumor']['icon']} No Tumor</div>
-        <div style="color: #22c55e; font-size: 0.8rem; margin-bottom: 0.5rem;">Severity: {TUMOR_INFO['notumor']['severity']}</div>
-        <div class="tumor-desc">{TUMOR_INFO['notumor']['description']}</div>
-        <div style="margin-top: 0.8rem; font-size: 0.85rem; color: #cbd5e1;">
-            {'<br>'.join(TUMOR_INFO['notumor']['bullets'])}
-        </div>
+    <div class="glass-card tumor-card tumor-card-notumor">
+        <div class="tumor-icon tumor-icon-notumor">N</div>
+        <div class="tumor-name">No Tumor</div>
+        <span class="tumor-severity {TUMOR_INFO['notumor']['severity_class']}">{TUMOR_INFO['notumor']['severity']}</span>
+        <p class="tumor-desc">{TUMOR_INFO['notumor']['description']}</p>
+        <ul class="tumor-list">
+            {''.join([f'<li>{point}</li>' for point in TUMOR_INFO['notumor']['points']])}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
+
+# Divider
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Upload Section
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown('<div class="section-title" style="text-align:center; font-size:1.8rem;">🔬 Analyze MRI Scan</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="section-header">
+    <div class="section-tag">◉ Image Analysis</div>
+    <h2 class="section-title">Upload MRI Scan</h2>
+    <p class="section-desc">Submit a brain MRI scan for automated classification</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("""
-<div class="upload-zone">
-    <div style="font-size: 3rem; margin-bottom: 1rem;">📤</div>
-    <div style="color: #94a3b8; font-size: 1.1rem;">Drag and drop your MRI scan or click to browse</div>
-    <div style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">Supports PNG, JPG, JPEG</div>
+<div class="upload-container">
+    <div class="upload-icon">↑</div>
+    <div class="upload-title">Drop your MRI scan here</div>
+    <div class="upload-subtitle">or click to browse from your device</div>
+    <div class="upload-formats">
+        <span class="format-badge">PNG</span>
+        <span class="format-badge">JPG</span>
+        <span class="format-badge">JPEG</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -402,23 +809,23 @@ if uploaded_file is not None:
     with col1:
         st.markdown("""
         <div class="glass-card" style="text-align: center;">
-            <div class="section-title" style="justify-content: center;">🖼️ Uploaded MRI Scan</div>
+            <div style="color: #5eead4; font-weight: 600; margin-bottom: 1rem;">◇ Uploaded Scan</div>
         </div>
         """, unsafe_allow_html=True)
         st.image(image, use_container_width=True)
     
     with col2:
         st.markdown("""
-        <div class="glass-card" style="text-align: center; height: 100%;">
-            <div class="section-title" style="justify-content: center;">🎯 Analysis Results</div>
+        <div class="glass-card" style="text-align: center;">
+            <div style="color: #5eead4; font-weight: 600; margin-bottom: 1rem;">◆ Classification Results</div>
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("🔮 Analyze MRI Scan", type="primary"):
-            with st.spinner("🧠 AI is analyzing the scan..."):
+        if st.button("▶ Run Analysis", type="primary"):
+            with st.spinner("Processing scan..."):
                 progress_bar = st.progress(0)
                 for i in range(100):
-                    time.sleep(0.01)
+                    time.sleep(0.012)
                     progress_bar.progress(i + 1)
                 
                 processed_image = preprocess_image(image)
@@ -430,47 +837,56 @@ if uploaded_file is not None:
                 progress_bar.empty()
                 
                 st.markdown(f"""
-                <div class="result-card">
-                    <div class="prediction-main">
-                        {TUMOR_INFO[class_name]['icon']} {class_name.upper()}
+                <div class="result-container">
+                    <div class="result-header">
+                        <div class="result-label">Primary Classification</div>
+                        <div class="result-value">{class_name.upper()}</div>
+                        <div class="result-confidence">Confidence: <span>{confidence:.1%}</span></div>
                     </div>
-                    <div style="text-align: center; color: #94a3b8; margin-top: 0.5rem;">
-                        Confidence: <strong style="color: #22c55e;">{confidence:.1%}</strong>
+                    <div style="color: #6b7280; font-size: 0.85rem; font-weight: 500; margin-bottom: 1rem;">
+                        Probability Distribution
                     </div>
-                </div>
                 """, unsafe_allow_html=True)
                 
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.markdown('<div style="color: #94a3b8; font-weight: 600; margin-bottom: 1rem;">📊 All Class Probabilities</div>', unsafe_allow_html=True)
-                
-                for i, (cls, score) in enumerate(zip(CLASS_NAMES, prediction[0])):
-                    bar_class = f"bar-{cls}"
+                for cls, score in zip(CLASS_NAMES, prediction[0]):
                     st.markdown(f"""
-                    <div style="margin-bottom: 1rem;">
-                        <div style="display: flex; justify-content: space-between; color: #e2e8f0; margin-bottom: 0.3rem;">
-                            <span>{TUMOR_INFO[cls]['icon']} {cls.capitalize()}</span>
-                            <span style="color: {CLASS_COLORS[cls]};">{score:.1%}</span>
+                    <div class="prob-item">
+                        <div class="prob-header">
+                            <span class="prob-name">{cls.capitalize()}</span>
+                            <span class="prob-value" style="color: {CLASS_COLORS[cls]};">{score:.1%}</span>
                         </div>
-                        <div class="confidence-bar-container">
-                            <div class="confidence-bar {bar_class}" style="width: {score*100}%;"></div>
+                        <div class="prob-bar-bg">
+                            <div class="prob-bar prob-bar-{cls}" style="width: {score*100}%;"></div>
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
+                
+                st.markdown("</div>", unsafe_allow_html=True)
 
 # Disclaimer
 st.markdown("""
 <div class="disclaimer">
-    ⚠️ <strong>Medical Disclaimer:</strong> This tool is designed for educational and research purposes only. 
-    It should NOT be used as a substitute for professional medical diagnosis. Always consult qualified 
-    healthcare professionals for medical decisions.
+    <div class="disclaimer-icon">!</div>
+    <div class="disclaimer-text">
+        <strong>Medical Disclaimer:</strong> This application is developed exclusively for educational and 
+        research purposes. It should not be used as a substitute for professional medical diagnosis. 
+        Always consult qualified healthcare professionals for clinical decisions.
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
-<div style="text-align: center; color: #64748b; margin-top: 3rem; padding: 2rem;">
-    <div>Built by Nyla</div>
-    <div style="font-size: 0.8rem; margin-top: 0.5rem;">© 2024 Brain Tumor Classifier | For Educational Use Only</div>
+<div class="footer">
+    <div class="footer-links">
+        <span class="footer-link">Documentation</span>
+        <span class="footer-link">Research</span>
+        <span class="footer-link">GitHub</span>
+        <span class="footer-link">Contact</span>
+    </div>
+    <div class="footer-copyright">
+        © 2024 BrainTumor — Built with TensorFlow & Streamlit
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
