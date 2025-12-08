@@ -10,13 +10,11 @@ The goal of this project is to:
 - Improve accessibility of medical diagnostics  
 - Provide a foundation for future AI-assisted clinical tools  
 
----
 
 ## Demo
 Check out the demo and test it yourself:
 👉 <https://demo-brain-tumor.streamlit.app/>
 
----
 ## ❗ Problem Statement
 
 Brain tumor diagnosis requires skilled radiologists, and delays in interpretation can significantly affect patient health. In many regions:
@@ -28,7 +26,6 @@ Studies show that **over 250,000+ brain tumor cases** occur yearly worldwide, an
 
 To address this, we designed an AI system that automatically detects and classifies brain tumors from MRI scans with high accuracy.
 
----
 ## 🚀 Introduction
 
 **BrainTumor AI** is an intelligent system that allows users to upload MRI scans and get instant predictions of four major tumor types:
@@ -52,6 +49,5 @@ This system helps medical professionals, students, and low-resource hospitals by
 - Educational tool for medical students  
 - Fast screening in large datasets  
 
----
 
 
