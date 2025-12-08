@@ -1013,7 +1013,7 @@ st.markdown("""
         <span class="footer-link">Contact</span>
     </div>
     <div class="footer-copyright">
-        © 2025 BrainTumorAI — Built with TensorFlow, Keras & Streamlit
+        © 2025 BrainTumorAI — Built by Nyla Bhargava
     </div>
 </div>
 </div>
